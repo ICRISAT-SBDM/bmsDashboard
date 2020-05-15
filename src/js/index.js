@@ -165,7 +165,7 @@ const getTrailsNameList = () => {
     const trailNameList = Array.from(new Set(selectedTrail.filter(data => (data.trialName || data.trialName === false) && studyNameVal.includes(data.studyName)).map(data => data.trialName)))
     .map(data => {
       const record = selectedTrail.find(fdata => fdata.trialName === data && studyNameVal.includes(fdata.studyName));
-      return `<a onclick="onTrailClick('${record.crop}', '${record.trialDbId}')" class="list-group-item list-group-item-action">${data}</a>`}).join('\n');
+      return `<a onclick="onStudiesClick('${record.crop}', '${record.studyDbId}')" class="list-group-item list-group-item-action">${data}</a>`}).join('\n');
     if (trailNameList) {
       $('#allTrailsName').html(trailNameList);
     }
@@ -239,12 +239,13 @@ getSelectedTrails = () => {
     setTimeout(() => { generateCountryTrialsChart()});
     setTimeout(() => { generateCountryNurseriesChart()});
     setTimeout(() => { generateProgramTableData(selectedTrail)});
+    setTimeout(() => { generateExprimentalChart(selectedTrail)});
     setTimeout(() => { generateMapMarkerToolTip(false)});
     setTimeout(() => { getProgramList()});
   }
 }
 
-const onTrailClick = (crop, trailNo) => {
+const onStudiesClick = (crop, trailNo) => {
   get(`traits/?cropName=${crop}&studyDbId=${trailNo}`).then(response => {
     if (response && response.data) {
       traitsData = response.data;
@@ -413,3 +414,31 @@ $('#all-designs').on('change', () => {
   $('#designs').fSelect('reload');
   $('#designs').trigger('change');
  });
+
+ /**
+ * Event fired when map option is changed
+ */
+ $('.map-options').on('click', (event) => {
+  const element = $(event.target);
+  $('.map-options').removeClass('radio-selected');
+  if (element.children().length > 1) {
+    element.children()[1].click();
+    element.addClass('radio-selected');
+  } else {
+    element.parent().click();
+    element.parent().addClass('radio-selected');
+  }
+  });
+
+  $('.map-radio').on('change', () => {
+    const radioVal = $(`input[name='map-radio']:checked`).val()
+    generateMapMarkerToolTip(false);
+  });
+
+  $('#all-trails').on('change', () => {
+    generateMapMarkerToolTip(false);
+  });
+
+  $('#all-Nurseries').on('change', () => {
+    generateMapMarkerToolTip(false);
+  });

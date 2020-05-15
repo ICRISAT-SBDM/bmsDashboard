@@ -8,10 +8,24 @@ L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
  }).addTo(map);
 
  const generateMapMarkerToolTip = (param) => {
-    const mapData = !param ? selectedTrail.filter(data => data.latitude && data.longitude)
-    : allTrailsList.filter(data => data.latitude && data.longitude && data.locationCountry === param);
-    
+     let trailType = $(`input[name='map-radio']:checked`).val();
+     const isGoodTrail = (data, tType) => {
+        if ((tType === 'all') || (tType === 'Good' && data.experimentaldesignStatus === 'success') ||
+        (tType === 'Bad' && data.experimentaldesignStatus !== 'success') ) return true;
+        return false;
+     };
+    let sType = 'all';
+    if ($('#all-trails').prop('checked') && !$('#all-Nurseries').prop('checked')) {
+        sType = 'Trial';
+    } else if (!$('#all-trails').prop('checked') && $('#all-Nurseries').prop('checked')) {
+        sType = 'Nursery';
+    } else {
+        sType = 'all';
+    }
+    const mapData = !param ? selectedTrail.filter(data => data.latitude && data.longitude && isGoodTrail(data, trailType) && (sType === 'all' || data.studyType === sType))
+    : allTrailsList.filter(data => data.latitude && data.longitude && data.locationCountry === param  && isGoodTrail(data, trailType) && (sType === 'all' || data.studyType === sType));
     if (cluster) {
+        cluster.clearLayers()
         map.removeLayer(cluster)
     } else {
         cluster = L.markerClusterGroup();
@@ -25,7 +39,7 @@ L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
         <div style="${data.studyType === 'Trial' ? trailColor : nursaryColor}">
         Location : ${data.locationCountry}<br>
         Study Name: ${data.studyName}<br>
-        Trail Name: ${data.trailName ? data.trailName : ''}<br>
+        Trail Name: ${data.trialName ? data.trialName : ''}<br>
         Crop: ${data.crop}<br>
         Date: ${dateFormat(data.startDate)}<br>
         Latitude: ${data.latitude}.<br>
@@ -36,7 +50,7 @@ L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
         lastLatLong = [data.latitude, data.longitude];
     });
     map.addLayer(cluster);
-    if (lastLatLong) map.setView(lastLatLong, 6);
+    if (lastLatLong) map.setView(lastLatLong, 4);
 }
 
 const dateFormat = (data) => {
