@@ -12,14 +12,6 @@ Promise.all([get('countries'), get('crops')]).then(response => {
   if (response && response.length) {
     if (response[0] && response[0].data) {
       countryList = response[0].data;
-      // continents are assigned.
-      countryList.forEach(element => {
-        if (element.countryName === 'India') {
-          element.continent = 'Asia';
-        } else {
-          element.continent = 'Africa';
-        }
-      });
       getContinentHtmlList();
       getContriesByContinent();
     }
@@ -162,12 +154,12 @@ const getTrailsNameList = () => {
   $('#allTrailsName').html('');
   const studyNameVal = getFieldValue($('#studyName').val());
   if(studyNameVal) {
-    const trailNameList = Array.from(new Set(selectedTrail.filter(data => (data.trialName || data.trialName === false) && studyNameVal.includes(data.studyName)).map(data => data.trialName)))
+    const studyNameList = Array.from(new Set(selectedTrail.filter(data => (data.studyName) && studyNameVal.includes(data.studyName)).map(data => data.studyName)))
     .map(data => {
-      const record = selectedTrail.find(fdata => fdata.trialName === data && studyNameVal.includes(fdata.studyName));
+      const record = selectedTrail.find(fdata => fdata.studyName === data && studyNameVal.includes(fdata.studyName));
       return `<a onclick="onStudiesClick('${record.crop}', '${record.studyDbId}')" class="list-group-item list-group-item-action">${data}</a>`}).join('\n');
-    if (trailNameList) {
-      $('#allTrailsName').html(trailNameList);
+    if (studyNameList) {
+      $('#allTrailsName').html(studyNameList);
     }
   }
 }
@@ -250,11 +242,11 @@ const onStudiesClick = (crop, trailNo) => {
     if (response && response.data) {
       traitsData = response.data;
       if (traitsData) {
-        const traitHtml = traitsData.filter(data => data.triatName).map(data => 
-          `<a class="list-group-item list-group-item-action"> ${data.triatName}</a>`).join('\n');
-        const tBodyHtml = traitsData.filter(data => data.triatName).map(data => 
+        const traitHtml = traitsData.filter(data => data.traitName).map(data => 
+          `<a class="list-group-item list-group-item-action"> ${data.traitName}</a>`).join('\n');
+        const tBodyHtml = traitsData.filter(data => data.traitName).map(data => 
             `<tr>
-            <td> ${data.triatName} </td>
+            <td> ${data.traitName} </td>
             <td> 
               <div class="cell">
                 <span style="width:100%" data-value="100">${data.min}%</span>
