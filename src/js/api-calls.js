@@ -19,25 +19,3 @@ let loader = 0;
         });
       });
   }
-
-  const post = (url, data) => {
-    loader++;
-    return new Promise((resolve,reject) => {
-      $.ajax({
-          'type': "POST",
-          'url': root_url + url,
-          'data': data,
-          success: function (response){
-              loader--;
-              resolve(response);
-          },
-          error: function (err){
-              loader--;
-              alert("Cannot connect to server");
-              reject(err);
-          }
-      });
-    });
-
- 
-}

@@ -8,37 +8,37 @@
   <meta name="description" content="">
   <meta name="keywords" content="">
   <meta name="author" content="">
-  <title>@ICRISAT</title>
-  <link rel="apple-touch-icon" href="app-assets/images/ico/apple-icon-120.png">
-  <link rel="shortcut icon" type="image/x-icon" href="app-assets/images/ico/favicon.ico">
+  <title>BMS-Dashboard</title>
+  <link rel="apple-touch-icon" href="assets/images/ico/apple-icon-120.png">
+  <link rel="shortcut icon" type="image/x-icon" href="assets/images/ico/favicon.ico">
   <link
     href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i%7CQuicksand:300,400,500,700"
     rel="stylesheet">
   <!-- BEGIN VENDOR CSS-->
-  <link href="fSelect.css" rel="stylesheet">
+  <link href="assets/css/fSelect.css" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <link rel="stylesheet" type="text/css" href="app-assets/css/vendors.css">
-  <!-- END VENDOR CSS-->
-
   <!-- BEGIN MODERN CSS-->
-  <link rel="stylesheet" type="text/css" href="app-assets/css/vendors.css">
-  <link rel="stylesheet" type="text/css" href="app-assets/css/app.css">
-  <link rel="stylesheet" type="text/css" href="app-assets/css/core/menu/menu-types/vertical-menu.css">
-  <link rel="stylesheet" type="text/css" href="app-assets/css/core/colors/palette-gradient.css">
-  <link rel="stylesheet" type="text/css" href="app-assets/css/pages/users.css">
-  <link rel="stylesheet" type="text/css" href="assets/css/style.css">
-  <link rel="stylesheet" type="text/css" href="app-assets/fonts/simple-line-icons/style.min.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/vendors.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/app.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/core/menu/menu-types/vertical-menu.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/core/colors/palette-gradient.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/pages/users.css">
+  <link rel="stylesheet" type="text/css" href="src/css/style.css">
+  <link rel="stylesheet" type="text/css" href="assets/fonts/simple-line-icons/style.min.css">
   <!-- END Page Level CSS-->
-  <link rel="stylesheet" type="text/css" href="assets/css/leaflet.css">
+  <link rel="stylesheet" type="text/css" href="assets/custome/css/leaflet.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
   <link rel="stylesheet" href="https://leaflet.github.io/Leaflet.markercluster/dist/MarkerCluster.css" />
   <link rel="stylesheet" href="https://leaflet.github.io/Leaflet.markercluster/dist/MarkerCluster.Default.css" />
 
+
   <!-- BEGIN Custom CSS-->
-  <link rel="stylesheet" type="text/css" href="assets/css/style-custom.css">
+  <link rel="stylesheet" type="text/css" href="src/css/style-custom.css">
 
   <!-- Leaflet -->
-  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+    integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+    crossorigin=""></script>
   <!-- Leaflet.TileLayer.GlColorScale -->
   <script src="https://unpkg.com/leaflet.tilelayer.glcolorscale/dist/bundle.min.js"></script>
   <script src="https://www.amcharts.com/lib/4/core.js"></script>
@@ -49,6 +49,7 @@
   <script src="https://www.amcharts.com/lib/4/maps.js"></script>
   <script src="https://www.amcharts.com/lib/4/geodata/worldIndiaLow.js"></script>
   <script src="https://www.amcharts.com/lib/4/geodata/usaLow.js"></script>
+
   <!-- END Custom CSS-->
   <style>
     .fs-wrap {
@@ -57,36 +58,222 @@
       line-height: 1;
       width: 100% !important;
     }
+    .brand-logo{
+      height: 70px;
+      margin-top: -14px;
+    }
     .auto-width {
       width: 94%;
     }
-    
+
+    .h-200 {
+      height: 200px;
+    }
+    .font-weight-700{
+      font-weight: 700;
+    }
+    h2,
+    .h2 {
+      font-size: 1.4rem;
+    }
+    body.vertical-layout.vertical-menu.menu-expanded .navbar .navbar-container {
+    margin-left: 0px;
+  }
+  .bms-center-text{
+    color: orange;
+    font-size: 2rem;
+    margin-top: -7px;
+  }
+  .header-navbar .navbar-header .navbar-brand .brand-logo {
+    width: auto;
+    height: 50px;
+    margin-top: -9px;
+}
+.fixed_headers {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+}
+/*.fixed_headers th {
+  text-decoration: underline;
+}*/
+.fixed_headers th,
+.fixed_headers td {
+  padding: 5px;
+  text-align: left;
+}
+.fixed_headers td:nth-child(1),
+.fixed_headers th:nth-child(1) {
+  min-width: 100px;
+}
+.fixed_headers td:nth-child(2),
+.fixed_headers th:nth-child(2) {
+  min-width: 457px;
+}
+.fixed_headers td:nth-child(3),
+.fixed_headers th:nth-child(3) {
+  width: 420px;
+}
+.fixed_headers td:nth-child(4),
+.fixed_headers th:nth-child(4) {
+  width: 102px;
+}
+.fixed_headers td:nth-child(5),
+.fixed_headers th:nth-child(5) {
+  width: 117px;
+}
+.fixed_headers thead {
+  background-color: #333333;
+  color: #fdfdfd;
+}
+.fixed_headers thead tr {
+  display: block;
+  position: relative;
+}
+.fixed_headers tbody {
+  display: block;
+  overflow: auto;
+  width: 100%;
+  height: 340px;
+}
+.fixed_headers tbody tr:nth-child(even) {
+  background-color: #dddddd;
+}
+.old_ie_wrapper {
+  height: 340px;
+  width: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+.old_ie_wrapper tbody {
+  height: auto;
+}
+
+
+  @media (max-width: 1024px){
+   .bms-center-text {
+    color: orange;
+    font-size: 2rem;
+    margin-left: 165px;
+    margin-top: -20px;
+    }
+  }
+  @media (max-width: 823px){
+   .header-navbar .navbar-header .navbar-brand .brand-logo {
+    height: 40px!important;
+    margin-top: -15px;
+}
+.bms-center-text {
+    color: orange;
+    font-size: 2rem;
+    margin-left: 251px;
+    margin-top: -32px;
+}
+.brand-logo{
+      height: 70px;
+      margin-top: -29px;
+    }
+}
+
+
+@media (max-width: 812px){
+  .header-navbar .navbar-header .navbar-brand .brand-logo {
+    height: 40px !important;
+    margin-top: -14px;
+}
+}
+
+@media (max-width: 736px){ }
+.header-navbar .navbar-header .navbar-brand .brand-logo {
+    height: 45px;
+    margin-top: -9px;
+}
+}
+
+@media (max-width: 640px){
+   .header-navbar .navbar-header .navbar-brand .brand-logo {
+    /* width: auto; */
+    height: 42px;
+    margin-top: -5px;
+}
+}
+  @media (max-width: 360px){
+   .header-navbar .navbar-header .navbar-brand .brand-logo {
+    /* width: auto; */
+    height: 42px;
+    margin-top: -5px;
+}
+}
+
+@media (max-width: 320px){ 
+.header-navbar .navbar-header .navbar-brand .brand-logo {
+    height: 38px;
+    margin-top: -5px;
+}
+}
   </style>
- 
+
 </head>
 
 <body class="vertical-layout vertical-menu 2-columns   menu-expanded fixed-navbar" data-open="click"
   data-menu="vertical-menu" data-col="2-columns">
-  <!-- fixed-top-->
-  <nav
-    class="header-navbar navbar-expand-md  navbar-with-menu navbar-without-dd-arrow fixed-top navbar-semi-light bg-default navbar-shadow">
-    <div class="navbar-wrapper">
-      <div class="navbar-header">
-        <ul class="nav navbar-nav flex-row">
-          <li class="nav-item mobile-menu d-md-none mr-auto"><a class="nav-link nav-menu-main menu-toggle hidden-xs"
-              href="#"><i class="ft-menu font-large-1"></i></a></li>
-          <li class="nav-item"><a class="navbar-brand" href="index.html"><img class="brand-logo" alt="icrisat"
-                src="images/icrisat.png" style="height: 45px;"></a></li>
-          <li class="nav-item d-md-none"><a class="nav-link open-navbar-container" data-toggle="collapse"
-              data-target="#navbar-mobile"><i class="la la-ellipsis-v"></i></a></li>
-        </ul>
-      </div>
-      <!-- <div class="navbar-container content">
-      </div> -->
-    </div>
-  </nav>
 
-  <!-- ////////////////////////////////////////////////////////////////////////////-->
+  <nav class="header-navbar navbar-expand-md navbar navbar-with-menu navbar-without-dd-arrow fixed-top navbar-dark bg-default navbar-shadow navbar-brand-left" data-nav="brand-left">
+      <div class="navbar-wrapper">
+        <div class="navbar-header">
+          <ul class="nav navbar-nav flex-row">
+            <li class="nav-item mobile-menu d-md-none mr-auto"><a class="nav-link nav-menu-main menu-toggle hidden-xs" href="#"><i class="ft-menu font-large-1"></i></a></li>
+             <li class="nav-item"><a class="navbar-brand" href="index.html"><img class="brand-logo" alt="icrisat" src="images/ICRISAT.png"> 
+              </a>
+            </li>
+            <li class="nav-item d-md-none"><a class="nav-link open-navbar-container" data-toggle="collapse" data-target="#navbar-mobile"><i class="la la-ellipsis-v"></i></a></li>
+          </ul>
+        </div>
+        <div class="navbar-container">
+          <div class="collapse navbar-collapse" id="navbar-mobile">
+            <ul class="nav navbar-nav mr-auto  float-left">
+            <!-- <li class="nav-item mobile-menu d-md-none mr-auto">BMS Dashboard</li> -->
+            <li class="nav-item ml-5">
+              &nbsp;
+            </li>
+             <li class="nav-item ml-5">
+              &nbsp;
+            </li>
+             <li class="nav-item ml-5">
+              &nbsp;
+            </li>
+             <li class="nav-item ml-5">
+              &nbsp;
+            </li>
+             <li class="nav-item ml-5">
+              &nbsp;
+            </li>
+             <li class="nav-item ml-5">
+              &nbsp;
+            </li>
+            <li class="nav-item ml-5">
+              &nbsp;
+            </li>
+            <li class="nav-item nav-bar-1">
+              <a class="" href="index.html">
+                <h2 class="bms-center-text"><strong>BMS Dashboard</strong></h2>
+              </a>
+            </li>
+            <li class="nav-item d-md-none"><a class="nav-link open-navbar-container" data-toggle="collapse" data-target="#navbar-mobile"><i class="la la-ellipsis-v"></i></a></li>
+            </ul>
+            <ul class="nav navbar-nav float-right">
+              <li class="nav-item">
+                <a class="navbar-brand" href="index.html">
+                  <img class="brand-logo" alt="icrisat" src="images/SBDM.png">
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </nav>
+  
+   
 
 
   <div class="main-menu menu-fixed menu-light menu-accordion    menu-shadow " data-scroll-to-active="true">
@@ -104,16 +291,14 @@
             class="fa fa-search"></i></span>
       </div>
 
-      <div class="row">
+      <div class="row fixed-top1">
         <div class="col-sm-12 col-md-12 col-lg-12">
           <div class="card">
             <div class="card-body">
               <div class="row main-seven-cols pl-15px">
                 <div class="seven-cols">
-                  <h2 class="text-center text-warning-custom">
-                    <strong>
-                      Continent</strong></h2>
-                  <h2 class="text-green text-center font-30"><strong id="numOfContinent">0</strong></h2>
+                  <h2 class="text-center text-warning-custom"><strong> Continents</strong>
+                  </h2>
                   <div class="row">
                     <div class="col-sm-2">
                       <label class="checkbox-container">
@@ -129,10 +314,8 @@
                   </div>
                 </div>
                 <div class="seven-cols">
-                  <h2 class="text-center text-warning-custom">
-                    <strong>
-                      Countries</strong></h2>
-                  <h2 class="text-green text-center font-30"><strong id="numOfCountry">0</strong></h2>
+                  <h2 class="text-center text-warning-custom"><strong> Countries</strong>
+                  </h2>
                   <div class="row">
                     <div class="col-sm-2">
                       <label class="checkbox-container">
@@ -148,10 +331,8 @@
                   </div>
                 </div>
                 <div class="seven-cols">
-                  <h2 class="text-center text-warning-custom">
-                    <strong>
-                      Crops</strong></h2>
-                  <h2 class="text-green text-center font-30"><strong id="numOfCrops">0</strong></h2>
+                  <h2 class="text-center text-warning-custom"><strong> Crops</strong>
+                  </h2>
                   <div class="row">
                     <div class="col-sm-2">
                       <label class="checkbox-container">
@@ -167,10 +348,7 @@
                   </div>
                 </div>
                 <div class="seven-cols">
-                  <h2 class="text-center text-warning-custom">
-                    <strong>
-                      Years</strong></h2>
-                  <h2 class="text-green text-center font-30"><strong id="numOfYears">0</strong></h2>
+                  <h2 class="text-center text-warning-custom"><strong> Years</strong></h2>
                   <div class="row">
                     <div class="col-sm-2">
                       <label class="checkbox-container">
@@ -185,8 +363,7 @@
                   </div>
                 </div>
                 <div class="seven-cols">
-                  <h2 class="text-center text-warning-custom"><strong>Design</strong></h2>
-                  <h2 class="text-green text-center font-30"><strong>12</strong></h2>
+                  <h2 class="text-center text-warning-custom"><strong> Designs </strong> </h2>
                   <div class="row">
                     <div class="col-sm-2">
                       <label class="checkbox-container">
@@ -201,21 +378,29 @@
                     </div>
                   </div>
                 </div>
+
+                <div class="text-center search-button">
+                  <button id="search" class="btn btn-sm btn-primary">
+                    Search
+                  </button>
+                </div>
+
                 <div class="seven-cols">
-                  <h2 class="text-center text-warning-custom"><strong>Trials</strong></h2>
-                  <h2 class="text-green text-center font-30"><strong id="numOfTrails">0</strong></h2>
-                  <div class="">
+                  <h2 class="text-center text-warning-custom"><strong> Trials </strong> : <span
+                      class="text-green text-center"> <strong id="numOfTrials">0</strong></span></h2>
+
+                  <div class="d-flex justify-content-center">
                     <label class="checkbox-container text-center">
                       &nbsp;
-                      <input type="checkbox" id="all-trails" checked>
+                      <input type="checkbox" id="all-trials" checked>
                       <span class="checkmark mt-5px"></span>
                     </label>
                   </div>
                 </div>
                 <div class="seven-cols">
-                  <h2 class="text-center text-warning-custom"><strong>Nurseries</strong></h2>
-                  <h2 class="text-green text-center font-30"><strong id="numOfNursary">0</strong></h2>
-                  <div class="">
+                  <h2 class="text-center text-warning-custom"><strong> Nurseries </strong> : <span
+                      class="text-green text-center"> <strong id="numOfNursery">0</strong></span></h2>
+                  <div class="d-flex justify-content-center">
                     <label class="checkbox-container">
                       &nbsp;
                       <input type="checkbox" id="all-Nurseries" checked>
@@ -232,7 +417,7 @@
 
       <div class="row">
         <div class="col-sm-12 col-md-12">
-          <div class="card">
+          <div class="card mt-165px mt-197px">
             <div class="card-body">
               <div class="border border-dark position-absolute">
                 <div class="d-flex flex-row justify-content-end bg-light text-white">
@@ -241,12 +426,12 @@
                     <input id="all-map" type="radio" name="map-radio" class="map-radio hidden" value="all" checked>
                   </div>
                   <div class="map-options">
-                    <span class="pt-1">Good Trials</span>
-                    <input id="trail-map" type="radio" name="map-radio" class="map-radio hidden" value="Good">
+                    <span class="pt-1">Advanced Trials</span>
+                    <input id="trial-map" type="radio" name="map-radio" class="map-radio hidden" value="Advanced">
                   </div>
                   <div class="map-options">
-                    <span class="pt-1">Bad Trials</span>
-                    <input id="nursary-map" type="radio" name="map-radio" class="map-radio hidden" value="Bad">
+                    <span class="pt-1">Primitive Trials</span>
+                    <input id="nursery-map" type="radio" name="map-radio" class="map-radio hidden" value="Primitive">
                   </div>
                 </div>
               </div>
@@ -264,7 +449,7 @@
               <div class="row">
                 <div class="col-xl-12 col-lg-12">
                   <div class="card">
-                    <div class="card-body" style="background: cornsilk">
+                    <div class="card-body" style="background: #f6fdf9">
                       <div class="row">
                         <div class="col-sm-6">
                           <div class="row align-items-center">
@@ -274,7 +459,7 @@
                               <label class="checkbox-container pb-1">
                                 <span><strong>Program</strong></span>
                                 <input type="checkbox" id="all-programs">
-                                <span class="checkmark"></span>
+                                <span class="checkmark height-18px"></span>
                               </label>
                             </div>
                           </div>
@@ -289,7 +474,7 @@
                               <label class="checkbox-container pb-1">
                                 <span><strong>Study Name</strong></span>
                                 <input type="checkbox" id="all-studyNames">
-                                <span class="checkmark"></span>
+                                <span class="checkmark height-18px"></span>
                               </label>
                             </div>
                           </div>
@@ -311,233 +496,209 @@
           <div class="card">
             <div class="card-body">
               <div class="row">
-                        <div class="col-sm-2">
-                          <div class="scrollbar" id="style-11">
-                            <div class="force-overflow">
-                              <div class="list-group">
-                                <a href="#" class="list-group-item active">
-                                  <strong> All Trials List </strong>
-                                </a>
-                                <section id="allTrailsName">
-                                </section>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div class="col-sm-2">
-                          <div class="scrollbar" id="style-11">
-                            <div class="force-overflow">
-                              <div class="list-group">
-                                <a class="list-group-item active">
-                                  <strong> Select Any Trait</strong>
-                                </a>
-                                <section id="traitNames">
-                                </section>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-sm-8">
-                          <div class="table-responsive">
-                            <table class="table table-bordered table-hover">
-                              <thead>
-                                <tr class="bg-primary text-white">
-                                  <th>VARIALBE</th>
-                                  <th>MIN </th>
-                                  <th>MEAN</th>
-                                  <th>MAX</th>
-                                </tr>
-                              </thead>
-                              <tbody id="traitsTBody">
-                              </tbody>
-                            </table>
-                          </div>
-                        </div>
+                <div class="col-sm-2">
+                  <div class="scrollbar" id="style-11">
+                    <div class="force-overflow">
+                      <div class="list-group">
+                        <a href="#" class="list-group-item active">
+                          <strong> All Trials List </strong>
+                        </a>
+                        <section id="allTrialsName">
+                        </section>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-
-            <div class="row">
-              <div class="col-sm-12 col-md-12">
-                <div class="card">
-                  <div class="card-body">
-                    <h5><strong>Total Trails Experimental Design</strong></h5>
-                     <div class="" id="stackedchart"></div>
+                <div class="col-sm-10" id="traits-content">
+                  <h4 class="text-center font-weight-700" id="studyNameTitle"></h4>
+                  <div class="row" id="traitsCharts">
                   </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="col-sm-12 col-md-12">
-                <div class="card">
-                  <div class="card-body">
-                    <h5><strong>Total Nurseries Experimental Design </strong></h5>
-                     <div class="" id="stackedchartNursary"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-          <div class="row">
-            <div class="col-sm-12 col-md-12">
-              <div class="card">
-                <div class="card-body">
-                  <h5><strong>Trials and Nurseries over the years</strong></h5>
-                  <div id="vertical_trails_nurseries"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-sm-6 col-md-6">
-              <div class="card">
-                <div class="card-body">
-                  <h5><strong>No Of Trials by Crops</strong></h5>
-                  <div id="replicationgraph"></div>
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-6 col-md-6">
-              <div class="card">
-                <div class="card-body">
-                  <h5><strong>No Of Nurseries by Crops</strong></h5>
-                  <div id="no_of_nurseries_by_crop"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-sm-6 col-md-6">
-              <div class="card">
-                <div class="card-body">
-                  <h5><strong>No of Trials by Country</strong></h5>
-                  <div id="country_level_trails"></div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-sm-6 col-md-6">
-              <div class="card">
-                <div class="card-body">
-                  <h5><strong>No of Nurseries by Country</strong></h5>
-                  <div id="country_level_nurseries"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="row mb-3">
-            <div class="col-sm-12 col-md-12">
-              <div class="card">
-                <div class="card-body">
-                  <!-- <h5>Country Level No.Of Trials</h5> -->
-                  <div class="table-responsive"  id="programsTable">
+                  <div class="table-responsive fixed_headers">
+                    <table class="table table-striped table-hover">
+                      <thead>
+                        <tr class="bg-primary text-white">
+                          <th>S NO</th>
+                          <th>VARIALBE</th>
+                          <th>MIN </th>
+                          <th>MEAN</th>
+                          <th>MAX</th>
+                        </tr>
+                      </thead>
+                      <tbody id="traitsTBody">
+                      </tbody>
+                    </table>
                   </div>
                 </div>
               </div>
             </div>
           </div>
+        </div>
+      </div>
 
-
-      <!-- === side search button side overlay code  ==== -->
       <div class="row">
         <div class="col-sm-12 col-md-12">
           <div class="card">
             <div class="card-body">
-              <div id="mySidenav" class="sidenav">
-                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-                <div class="row">
-                  <div class="col-xl-12 col-lg-12">
-                    <div class="card">
-                      <div class="card-body">
-                        <div class="row">
-                          <div class="col-sm-12 col-md-12">
-                            <div class="card">
-                              <div class="card-body">
-                                <div class="table-responsive">
-                                  <table class="table table-striped table-bordered table-hover" id="trailsTable">
-                                  </table>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
+              <h5><strong>Total Trials by Experimental Design</strong></h5>
+              <div class="" id="stackedchart"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-12 col-md-12">
+          <div class="card">
+            <div class="card-body">
+              <h5><strong>Trials and Nurseries over the years</strong></h5>
+              <div id="vertical_trials_nurseries"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-6 col-md-6">
+          <div class="card">
+            <div class="card-body">
+              <h5><strong>No of Trials by Country</strong></h5>
+              <div id="country_level_trials"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-6 col-md-6">
+          <div class="card">
+            <div class="card-body">
+              <h5><strong>No of Nurseries by Country</strong></h5>
+              <div id="country_level_nurseries"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mb-1">
+        <div class="col-sm-12 col-md-12">
+          <div class="card">
+            <div class="card-body">
+              <div class="table-responsive" id="programsTable">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- == Start Modal === -->
+      <div class="row">
+        <div class="col-sm-12">
+          <button type="button" id="messagebox" class="btn btn-primary btn-sm hidden" data-toggle="modal"
+            data-target="#messageModal">
+            Replications
+          </button>
+
+          <div class="modal" id="messageModal">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header bg-primary text-center p-0">
+                  <h4 class="modal-title text-white ptl-10px">Message</h4>
+                  <button type="button" class="close m-0" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body" id="messageBody">
+                  DATA
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- == End Modal === -->
+
+      <div id="mySidenav" class="sidenav">
+
+        <div class="row">
+          <div class="col-sm-12 col-md-12">
+            <div class="card">
+              <div class="card-body">
+                <div class="container">
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <div class="panel panel-success">
+                        <div class="panel-heading">
+                          <a href="javascript:void(0)" class="closebtn btn-sm btn-light mb-1"
+                            onclick="closeNav()">&times;</a>
+                          <a href="javascript:void(0)" class="btn btn-sm btn-info float-right mb-1  mr-4"
+                            onclick="onReset()">Reset</a>
+                        </div>
+                        <div class="panel-body panel-flex-table">
+                          <table class="table flex-table table table-striped table-hover " id="trialsTable">
+                          </table>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-              <!-- === end search button side overlay code   === --->
             </div>
           </div>
-          <!-- ////////////////////////////////////////////////////////////////////////////-->
+        </div>
+      </div>
 
 
-          <footer class="footer footer-static footer-light navbar-border navbar-shadow"
-            style="margin-left: 0px;position: fixed;left: 0;bottom: 0;width: 100%; margin-bottom: 0px;">
-            <p class="clearfix blue-grey lighten-2 text-sm-center mb-0 px-2">
-              <span class="float-md-right d-block d-md-inline-blockd-none d-lg-block">Co-developed by:
-                <!-- <img src="images/icrisat_logo.jpg" style="height: 35px; width:auto; padding-left: 20px; padding-right: 40px;"> <img src="images/verd_logo.png" style="height: 35px; width:auto;"> --></span>
-            </p>
-          </footer>
+      <!-- ////////////////////////////////////////////////////////////////////////////-->
 
-          <!-- BEGIN VENDOR JS-->
-          <script src="app-assets/vendors/js/vendors.min.js"></script>
-          <!-- BEGIN VENDOR JS-->
-          <!-- BEGIN PAGE VENDOR JS-->
-          <script src="app-assets/vendors/js/charts/chart.min.js"></script>
-          <script src="app-assets/vendors/js/charts/echarts/echarts.js"></script>
-          <!-- END PAGE VENDOR JS-->
-          <!-- BEGIN MODERN JS-->
-          <script src="app-assets/js/core/app-menu.js"></script>
-          <script src="app-assets/js/core/app.js"></script>
-          <!-- END MODERN JS-->
-          <!-- BEGIN PAGE LEVEL JS-->
-          <script type="text/javascript"
-            src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-          <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-          <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Project 15-bootstrap/4.4.1/js/bootstrap.min.js"></script> -->
-          <script src="assets/js/leaflet-src.js"></script>
-          <script src="https://leaflet.github.io/Leaflet.markercluster/dist/leaflet.markercluster-src.js"></script>
-          <script src="https://leaflet.github.io/Leaflet.markercluster/example/realworld.388.js"></script>
-          <!-- <script src="assets/js/nurseries.js"></script> -->
-          <!-- <script src="assets/js/trails.js"></script> -->
+    </div>
+  </div>
 
 
-          <script src="fSelect.js"></script>
-          <script src="src/js/api-calls.js"></script>
-          <script src="src/js/index.js"></script>
-          <script src="src/js/worldMap.js"></script>
-          <script src="src/js/trailsTable.js"></script>
-          <script src="src/js/no_of_trails_by_crops.js"></script>
-          <script src="src/js/no_of_nurseries_by_crop.js"></script>
-          <script src="src/js/vertical_trails_nurseries.js"></script>
-          <script src="src/js/country_level_trails.js"></script>
-          <script src="src/js/country_level_nurseries.js"></script>
-          <script src="src/js/expriment-design-chart.js"></script>
-          <!-- <script src="src/js/trails_worldmap.js"></script>
-           <script src="src/js/nurseries_worldmap.js"></script> -->
-          <!-- <script src="src/js/trails_by_projects.js"></script> -->
-          <!-- <script src="src/js/location_studyname.js"></script> -->
+  <footer class="footer footer-static footer-light navbar-border navbar-shadow">
+    <p class="clearfix blue-grey lighten-2 text-sm-center mb-0 px-2">
+      <span class="float-md-right d-block d-md-inline-blockd-none d-lg-block">
+        Copyright © 2020 SBDM, ICRISAT. All Rights Reserved
+    </p>
+  </footer>
+
+  <!-- style="margin-left: 0px;position: fixed;left: 0;bottom: 0;width: 100%; margin-bottom: 0px;" -->
+  <!-- BEGIN VENDOR JS-->
+  <script src="assets/vendors/js/vendors.min.js"></script>
+  <!-- BEGIN VENDOR JS-->
+  <!-- BEGIN PAGE VENDOR JS-->
+  <script src="assets/vendors/js/charts/chart.min.js"></script>
+  <script src="assets/vendors/js/charts/echarts/echarts.js"></script>
+  <!-- END PAGE VENDOR JS-->
+  <!-- BEGIN MODERN JS-->
+  <script src="assets/js/core/app-menu.js"></script>
+  <script src="assets/js/core/app.js"></script>
+  <!-- END MODERN JS-->
+  <!-- BEGIN PAGE LEVEL JS-->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="assets/custome/js/leaflet-src.js"></script>
+  <script src="https://leaflet.github.io/Leaflet.markercluster/dist/leaflet.markercluster-src.js"></script>
+  <script src="https://leaflet.github.io/Leaflet.markercluster/example/realworld.388.js"></script>
+  <script src="https://www.amcharts.com/lib/4/themes/material.js"></script>
 
 
+  <script src="assets/js/fSelect.js"></script>
+  <script src="src/js/api-calls.js"></script>
+  <script src="src/js/index.js"></script>
+  <script src="src/js/worldMap.js"></script>
+  <script src="src/js/trialsTable.js"></script>
+  <script src="src/js/vertical_trials_nurseries.js"></script>
+  <script src="src/js/country_level_trials.js"></script>
+  <script src="src/js/country_level_nurseries.js"></script>
+  <script src="src/js/expriment-design-chart.js"></script>
 
-          <script>
-            function openNav() {
-              document.getElementById("mySidenav").style.width = "auto";
-              document.getElementById("mySidenav").style.height = "610px";
-            }
+  <script>
+    function openNav() {
+      document.getElementById("mySidenav").style.width = "auto";
+      document.getElementById("mySidenav").style.height = "610px";
+    }
 
-            function closeNav() {
-              document.getElementById("mySidenav").style.width = "0";
-            }
-          </script>
+    function closeNav() {
+      document.getElementById("mySidenav").style.width = "0";
+    }
+  </script>
+
 
 </body>
 

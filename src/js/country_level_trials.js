@@ -1,24 +1,26 @@
-let country_level_nurseries = null;
-generateCountryNurseriesChart = () => {
-  if (country_level_nurseries && country_level_nurseries.dispose) {
-    country_level_nurseries.dispose();
+let country_level_trials = null;
+generateCountryTrialsChart = () => {
+  if (country_level_trials && country_level_trials.dispose) {
+    country_level_trials.dispose();
   }
-  const countryNurseries = selectedTrial.filter(data => data.studyType == 'Nursery');
-  const countries = Array.from(new Set(countryNurseries.map(data => data.locationCountry)));
-  const crops = Array.from(new Set(countryNurseries.map(data => data.crop)));
+  const countryTrials = selectedTrial.filter(data => data.studyType == 'Trial');
+  const countries = Array.from(new Set(countryTrials.map(data => data.locationCountry)));
+  const crops = Array.from(new Set(countryTrials.map(data => data.crop)));
   const chartData = countries.map(country => {
     const cropsData = crops.map(crop => {
       const result = {};
-      const total = countryNurseries.filter(data => data.locationCountry === country && data.crop === crop).length;
+      const total = countryTrials.filter(data => data.locationCountry === country && data.crop === crop).length;
       result[crop] = total;
       return result;
     });
     return Object.assign({ 'country': country }, Object.assign(...cropsData));
   });
-  generateCountryNurseriesBarChart(chartData, crops);
+  generateCountryTrialsBarChart(chartData, crops);
 }
 
-generateCountryNurseriesBarChart = (chartData, serieses) => {
+generateCountryTrialsBarChart = (chartData, serieses) => {
+
+
 
 
   am4core.ready(function () {
@@ -28,9 +30,12 @@ generateCountryNurseriesBarChart = (chartData, serieses) => {
     // Themes end
 
     // Create chart instance
-    country_level_nurseries = am4core.create("country_level_nurseries", am4charts.XYChart);
+    country_level_trials = am4core.create("country_level_trials", am4charts.XYChart);
 
-    country_level_nurseries.colors.list = [
+
+    // Add data
+    country_level_trials.data = chartData;
+    country_level_trials.colors.list = [
       am4core.color("#845EC2"),
       am4core.color("#D65DB1"),
       am4core.color("#FF6F91"),
@@ -38,12 +43,8 @@ generateCountryNurseriesBarChart = (chartData, serieses) => {
       am4core.color("#c7850c"),
     ];
 
-
-    // Add data
-    country_level_nurseries.data = chartData;
-
     // Create axes
-    var categoryAxis = country_level_nurseries.xAxes.push(new am4charts.CategoryAxis());
+    var categoryAxis = country_level_trials.xAxes.push(new am4charts.CategoryAxis());
     categoryAxis.dataFields.category = "country";
     categoryAxis.renderer.minGridDistance = 15;
     categoryAxis.renderer.grid.template.location = 0.5;
@@ -57,8 +58,9 @@ generateCountryNurseriesBarChart = (chartData, serieses) => {
     })
 
     const maxChartValue = Math.max(...chartData.map(data => Object.keys(data).filter(key => key !== 'country').map(key => data[key]).reduce((v1, v2) => v1 + v2, 0)));
-    var valueAxis = country_level_nurseries.yAxes.push(new am4charts.ValueAxis());
+    var valueAxis = country_level_trials.yAxes.push(new am4charts.ValueAxis());
     valueAxis.min = 0;
+
     var axisBreak = valueAxis.axisBreaks.create();
     axisBreak.startValue = (maxChartValue / 100) * 10;
     axisBreak.endValue = (maxChartValue / 100) * 95;
@@ -79,7 +81,7 @@ generateCountryNurseriesBarChart = (chartData, serieses) => {
     function createSeries(field, name) {
 
       // Set up series
-      var series = country_level_nurseries.series.push(new am4charts.ColumnSeries());
+      var series = country_level_trials.series.push(new am4charts.ColumnSeries());
       series.name = name;
       series.dataFields.valueY = field;
       series.dataFields.categoryX = "country";
@@ -94,9 +96,6 @@ generateCountryNurseriesBarChart = (chartData, serieses) => {
 
       // Add label
       var labelBullet = series.bullets.push(new am4charts.LabelBullet());
-      // labelBullet.label.text = "{valueY}";
-      labelBullet.locationY = 0.5;
-      labelBullet.label.hideOversized = true;
 
       return series;
     }
@@ -105,7 +104,7 @@ generateCountryNurseriesBarChart = (chartData, serieses) => {
     });
 
     // Legend
-    country_level_nurseries.legend = new am4charts.Legend();
+    country_level_trials.legend = new am4charts.Legend();
 
   }); // end am4core.ready()
 
