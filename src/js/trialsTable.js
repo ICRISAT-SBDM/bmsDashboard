@@ -35,7 +35,7 @@ generateCropTableOverProgram = () => {
 
     const generateProgramTableData = (cropProgramData) => {
       const tableData = [];
-      let tableHtml = `<table class="table table-bordered table-hover">
+      let tableHtml = `<table class="table table-bordered table-hover text-center">
       <thead>
         <tr class="bg-nur text-white">
           <th>Crop Name</th>
@@ -131,8 +131,8 @@ const onRowClick = (country, crop) => {
     <tr class="bg-primary text-white">
     <th>LOCATIONS</th>
     <th>CROPS</th>
-    <th>NURSERIES</th>
     <th>TRIALS</th>
+    <th>NURSERIES</th>
     </tr>
     </thead>
     <tbody>
@@ -161,19 +161,19 @@ const onRowClick = (country, crop) => {
     if (index === 0) {
       tableHtml += `
     <tr>
-    <td onclick="onRowClick('${data.country}', '')"><strong style="color: red;cursor:pointer">${data.country}</strong></td>
-    <td onclick="onRowClick('${data.country}', '${cData.crop}')">${cData.crop}</td>
-    <td onclick="onRowClick('${data.country}', '${cData.crop}')">${cData.trial}</td>
-    <td onclick="onRowClick('${data.country}', '${cData.crop}')">${cData.nursery}</td>
+    <td onclick="onRowClick('${data.country}', '')" style="cursor:pointer"><strong class="text-info">${data.country}</strong></td>
+    <td onclick="onRowClick('${data.country}', '${cData.crop}')" style="cursor:pointer">${cData.crop}</td>
+    <td onclick="onRowClick('${data.country}', '${cData.crop}')" style="cursor:pointer">${cData.trial}</td>
+    <td onclick="onRowClick('${data.country}', '${cData.crop}')" style="cursor:pointer">${cData.nursery}</td>
     </tr>`;	
     }
     if (index > 0) {
     tableHtml += `
     <tr>
-	<td onclick="onRowClick('${data.country}', '')"></td>
-    <td onclick="onRowClick('${data.country}', '${cData.crop}')">${cData.crop}</td>
-    <td onclick="onRowClick('${data.country}', '${cData.crop}')">${cData.trial}</td>
-    <td onclick="onRowClick('${data.country}', '${cData.crop}')">${cData.nursery}</td>
+	<td onclick="onRowClick('${data.country}', '')" style="cursor:pointer"></td>
+    <td onclick="onRowClick('${data.country}', '${cData.crop}')" style="cursor:pointer">${cData.crop}</td>
+    <td onclick="onRowClick('${data.country}', '${cData.crop}')" style="cursor:pointer">${cData.trial}</td>
+    <td onclick="onRowClick('${data.country}', '${cData.crop}')" style="cursor:pointer">${cData.nursery}</td>
     </tr>
     `;
     }

@@ -40,7 +40,7 @@ generateCountryNurseriesBarChart = (chartData, serieses) => {
 
 
     // Add data
-    country_level_nurseries.data = chartData;
+    country_level_nurseries.data = chartData.sort((v1,v2) => v1.country < v2.country ? -1 : 0);;
 
     // Create axes
     var categoryAxis = country_level_nurseries.xAxes.push(new am4charts.CategoryAxis());
@@ -100,7 +100,7 @@ generateCountryNurseriesBarChart = (chartData, serieses) => {
 
       return series;
     }
-    serieses.forEach(data => {
+    serieses.sort().forEach(data => {
       createSeries(data, data);
     });
 

@@ -44,17 +44,17 @@ const generateMapMarkerToolTip = (param) => {
     let lastLatLong = null;
     let iconObj = icons.blue;
     reqData.forEach(data => {
-        const nurseryColor = `background-color:Tomato; color: white;padding: 15px;`;
-        const trialColor = `background-color:DodgerBlue; color: white;padding: 15px;`
+        // const nurseryColor = `background-color:Tomato; color: white;padding: 15px;`;
+        // const trialColor = `background-color:DodgerBlue; color: white;padding: 15px;`
         const marker = L.marker([data.latitude, data.longitude], data.iconObj);
         marker.bindPopup(`
-        <div style="${data.studyType === 'Trial' ? trialColor : nurseryColor}">
+        <div class="${data.popupClass}">
         Location : ${data.locationCountry}<br>
         Study Name: ${data.studyName}<br>
         Trial Name: ${data.trialName ? data.trialName : ''}<br>
         Crop: ${data.crop}<br>
         Date: ${data.startDate}<br>
-        Latitude: ${data.latitude}.<br>
+        Latitude: ${data.latitude}<br>
         Longitude: ${data.longitude}
         </div>
         `)

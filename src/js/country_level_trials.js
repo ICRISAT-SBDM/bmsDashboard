@@ -34,7 +34,7 @@ generateCountryTrialsBarChart = (chartData, serieses) => {
 
 
     // Add data
-    country_level_trials.data = chartData;
+    country_level_trials.data = chartData.sort((v1,v2) => v1.country < v2.country ? -1 : 0);
     country_level_trials.colors.list = [
       am4core.color("#845EC2"),
       am4core.color("#D65DB1"),
@@ -99,7 +99,7 @@ generateCountryTrialsBarChart = (chartData, serieses) => {
 
       return series;
     }
-    serieses.forEach(data => {
+    serieses.sort().forEach(data => {
       createSeries(data, data);
     });
 

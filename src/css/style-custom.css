@@ -492,7 +492,7 @@ cell {
 }
  .container .panel-body table.flex-table tbody {
    flex: 1;
-   overflow-y: scroll;
+   overflow-y: overlay;
 }
  .container .panel-body table.flex-table tr {
    width: 100%;
@@ -511,6 +511,46 @@ cell {
 }
  .container .panel-body table.flex-widths tr td:nth-child(4), .container .panel-body table.flex-widths tr th:nth-child(4) {
    flex: 2;
+}
+.table-container .panel-body {
+  height: 390px;
+  padding: 0px;
+}
+.table-container .panel-body.panel-regular-table {
+  overflow-y: auto;
+}
+.table-container .panel-body table.flex-table {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.table-container .panel-body table.flex-table thead, .table-container .panel-body table.flex-table tbody {
+  display: block;
+}
+.table-container .panel-body table.flex-table thead {
+  margin-right: 0px;
+}
+.table-container .panel-body table.flex-table tbody {
+  flex: 1;
+  overflow-y: overlay;
+}
+.table-container .panel-body table.flex-table tr {
+  width: 100%;
+  display: flex;
+}
+.table-container .panel-body table.flex-table tr td, .table-container .panel-body table.flex-table tr th {
+  display: block;
+  flex: 1;
+}
+.table-container .panel-body table.flex-widths.flex-table-aligned thead > tr {
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+.table-container .panel-body table.flex-widths tr td:nth-child(2), .table-container .panel-body table.flex-widths tr th:nth-child(2) {
+  flex: 3;
+}
+.table-container .panel-body table.flex-widths tr td:nth-child(4), .table-container .panel-body table.flex-widths tr th:nth-child(4) {
+  flex: 2;
 }
 .force-overflow
 {
@@ -569,6 +609,21 @@ body.vertical-layout.vertical-menu.menu-collapsed .main-menu {
     opacity: 0;
     animation: show 0.35s forwards ease-in-out 0.5s;
   }
+.nursery-popup {
+  background-color:#14b825;
+  color: white;
+  padding: 10px
+}
+.advanced-trials-popup {
+  background-color:#1aa3ff;
+  color: white;
+  padding: 10px
+}
+.primitive-trials-popup {
+  background-color:#e63b19;
+  color: white;
+  padding: 10px
+}
 @media (max-width: 767.98px){ 
 .navbar-light .navbar-header .navbar-nav .nav-link, .navbar-semi-light .navbar-header .navbar-nav .nav-link {
     color: #fff; 
@@ -882,9 +937,14 @@ body.vertical-layout.vertical-menu.menu-collapsed .main-menu {
     .marker-cluster-large {
       background-color: #344703;
     }
+    .center-prog-study {
+      position: relative;
+      bottom: 40px;
+    }
 
     /* The checkbox-container */
     .checkbox-container {
+      z-index: 10;
       display: block;
       position: relative;
       padding-left: 35px;
@@ -965,15 +1025,15 @@ body.vertical-layout.vertical-menu.menu-collapsed .main-menu {
 }
 
     .map-options:hover {
-      background-color: green;
+      background-color: #2e2e2e;
     }
 
     .map-options:active {
-      background-color: green!important;
+      background-color: #2e2e2e!important;
     }
 
     .radio-selected {
-      background-color: green !important;
+      /* background-color: green !important; */
     }
 
 @media (min-width: 768px){

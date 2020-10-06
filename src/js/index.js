@@ -8,6 +8,7 @@ let traitsData = [];
 let designList = [];
 window.fs_test = $('#Continent, #Countries, #Crop, #Years, #program, #studyName, #designs').fSelect();
 $('#Continent').val([]);
+$('.radio-selected').css({ 'background-color': '#14b825' });
 Promise.all([get('countries'), get('crops')]).then(response => {
   if (response && response.length) {
     if (response[0] && response[0].data) {
@@ -34,14 +35,17 @@ const getTrialApi = () => {
       arrangeCropCountryDesign();
       allTrialsList.forEach(resObj => {
         if (resObj.studyType === 'Trial' && resObj.experimentalDesignStatus === 'Advanced') {
-          resObj.iconObj = icons.green;
-        } else if (resObj.studyType === 'Nursery') {
           resObj.iconObj = icons.blue;
-        } else if (resObj.studyType === 'Trial' && resObj.experimentalDesignStatus === 'Primitive'){
+          resObj.popupClass = 'advanced-trials-popup';
+        } else if (resObj.studyType === 'Nursery') {
+          resObj.iconObj = icons.green;
+          resObj.popupClass = 'nursery-popup';
+        } else if (resObj.studyType === 'Trial' && resObj.experimentalDesignStatus === 'Primitive') {
           resObj.iconObj = icons.red;
+          resObj.popupClass = 'primitive-trials-popup';
         }
       })
-      
+
       getCropsHtmlList();
       generateTableData(allTrialsList);
       getYearList();
@@ -82,10 +86,10 @@ const getContinentHtmlList = () => {
  * To get crops html option list and show number of crops avaliable.
  */
 const getCropsHtmlList = () => {
-  const crops = getUniqueCropList()
+  const crops = getUniqueCropList();
   $('#numOfCrops').text(crops.length);
   let cropsHtml = `<option value="" selected="selected"> Select Crop </option>\n`;
-  cropsHtml += crops.map(data => `<option value="${data}">${data}</option>`).join('\n');
+  cropsHtml += crops.sort().map(data => `<option value="${data}">${data}</option>`).join('\n');
   $('#Crop').html(cropsHtml);
   $('#all-crops').prop('checked', true);
   $('#Crop option').prop('selected', true);
@@ -171,6 +175,7 @@ const getStudyNameList = () => {
 */
 const getTrialsNameList = () => {
   $('#allTrialsName').html('');
+  $('#studyNameTitle').html('');
   const studyNameVal = getFieldValue($('#studyName').val());
   if (studyNameVal) {
     const studyNameList = Array.from(new Set(selectedTrial.filter(data => (data.studyName) && studyNameVal.includes(data.studyName)).map(data => data.studyName)))
@@ -223,14 +228,17 @@ getSelectedTrials = () => {
   $('#program').val([]);
   $('#program').html('');
   $('#program').fSelect('reload');
+  $('#all-programs').prop('checked', false);
   $('#studyName').val([]);
   $('#studyName').html('');
-  $('#program').fSelect('reload');
+  $('#studyName').fSelect('reload');
+  $('#all-studyNames').prop('checked', false);
   $('#traitNames').html('');
   $('#traitsTBody').html('');
   $('#traitsCharts').html('');
   $('#style-11').attr('style', '');
   $('#allTrialsName').html('');
+  $('#studyNameTitle').html('');
   $('#programsTable').html('');
   if (cluster) cluster.clearLayers();
 
@@ -239,10 +247,22 @@ getSelectedTrials = () => {
   const yearVal = getFieldValue($('#Years').val());
   const designVal = getFieldValue($('#designs').val());
 
+  const isBelongStudyType = (studyType) => {
+    if ($('#all-Nurseries').prop('checked') && $('#all-trials').prop('checked')) {
+      return true
+    } else if (!$('#all-Nurseries').prop('checked') && $('#all-trials').prop('checked')) {
+      return studyType === 'Trial';
+    } else if ($('#all-Nurseries').prop('checked') && !$('#all-trials').prop('checked')) {
+      return studyType === 'Nursery';
+    }
+  }
 
-    selectedTrial = allTrialsList.filter(data => conuntryVal.includes(data.locationCountry)
+
+  selectedTrial = allTrialsList.filter(data => conuntryVal.includes(data.locationCountry)
     && cropVal.includes(data.crop) && yearVal.includes(data.startDate.substring(0, 4))
-    && designVal.includes(data.experimentalDesign));
+    && designVal.includes(data.experimentalDesign) && isBelongStudyType(data.studyType));
+
+
 
 
   if (selectedTrial && selectedTrial.length) {
@@ -306,13 +326,13 @@ const onStudiesClick = (event, crop, trialNo, status, studyName) => {
             </td>
           </tr>`).join('\n');
           const chartHtml = traitsData.filter(traitData => !(isNaN(traitData.min) || isNaN(traitData.max) || isNaN(traitData.mean)))
-          .map(chartData => `<div title="${chartData.desc ? chartData.desc : chartData.traitName}"  class="col-sm-3 pt-0 pb-1">
+            .map(chartData => `<div title="${chartData.desc ? chartData.desc : chartData.traitName}"  class="col-sm-3 pt-0 pb-1">
             <div class="h-200 b-lightblue" id="trait_${chartData.traitName}">${chartData.desc}</div></div>`);
           $('#traitsTBody').html(tBodyHtml);
           $('#traitsCharts').html(chartHtml);
           $('#style-11').attr('style', `height:${$('#traits-content').innerHeight()}px!important`);
           traitsData.filter(traitData => !(isNaN(traitData.min) || isNaN(traitData.max) || isNaN(traitData.mean)))
-          .map(chartData  => setTimeout(() => generateTraitsCharts(chartData)));
+            .map(chartData => setTimeout(() => generateTraitsCharts(chartData)));
         }
       }
     });
@@ -332,7 +352,7 @@ $('#Continent').on('change', () => {
   getContriesByContinent();
   getCropsHtmlList();
   getYearList();
-  getAllDesignList ();
+  getAllDesignList();
 });
 
 /*
@@ -342,7 +362,7 @@ $('#Crop').on('change', () => {
   const isAllSelected = selectedCrops().length === getUniqueCropList().length;
   $('#all-crops').prop('checked', isAllSelected);
   getYearList();
-  getAllDesignList ();
+  getAllDesignList();
 });
 
 /*
@@ -353,7 +373,7 @@ $('#Countries').on('change', () => {
   $('#all-contries').prop('checked', isAllSelected);
   getCropsHtmlList();
   getYearList();
-  getAllDesignList ();
+  getAllDesignList();
 });
 
 /*
@@ -463,12 +483,20 @@ $('#all-designs').on('change', () => {
 $('.map-options').on('click', (event) => {
   const element = $(event.target);
   $('.map-options').removeClass('radio-selected');
+  $('.map-options').css({ 'background-color': '#2e2e2e' });
   if (element.children().length > 1) {
     element.children()[1].click();
     element.addClass('radio-selected');
   } else {
     element.parent().click();
     element.parent().addClass('radio-selected');
+  }
+  if ($(`input[name='map-radio']:checked`).val() === 'Advanced') {
+    $('.radio-selected').css({ 'background-color': '#1aa3ff' });
+  } else if ($(`input[name='map-radio']:checked`).val() === 'Primitive') {
+    $('.radio-selected').css({ 'background-color': '#e63b19' });
+  } else {
+    $('.radio-selected').css({ 'background-color': '#14b825' });
   }
 });
 
@@ -486,6 +514,7 @@ $('#all-trials').on('change', (event) => {
     return;
   }
   generateMapMarkerToolTip(false);
+  getSelectedTrials();
 });
 
 $('#all-Nurseries').on('change', (event) => {
@@ -497,6 +526,7 @@ $('#all-Nurseries').on('change', (event) => {
     return;
   }
   generateMapMarkerToolTip(false);
+  getSelectedTrials();
 });
 
 const clearAll = () => {
@@ -510,17 +540,17 @@ const clearAll = () => {
 }
 
 const getNonEmpty = (data) => data !== '';
-const selectedContinent = () =>  $('#Continent').val().filter(getNonEmpty);
-const selectedCountries = () =>  $('#Countries').val().filter(getNonEmpty);
-const selectedCrops = () =>  $('#Crop').val().filter(getNonEmpty);
-const selectedYears = () =>  $('#Years').val().filter(getNonEmpty);
-const selectedDesigns = () =>  $('#designs').val().filter(getNonEmpty);
-const selectedPrograms = () =>  $('#program').val().filter(getNonEmpty);
-const selectedStudyName = () =>  $('#studyName').val().filter(getNonEmpty);
+const selectedContinent = () => $('#Continent').val().filter(getNonEmpty);
+const selectedCountries = () => $('#Countries').val().filter(getNonEmpty);
+const selectedCrops = () => $('#Crop').val().filter(getNonEmpty);
+const selectedYears = () => $('#Years').val().filter(getNonEmpty);
+const selectedDesigns = () => $('#designs').val().filter(getNonEmpty);
+const selectedPrograms = () => $('#program').val().filter(getNonEmpty);
+const selectedStudyName = () => $('#studyName').val().filter(getNonEmpty);
 const getCountriesList = () => continentList.filter(data => selectedContinent()
-                              .includes(data.continent)).map(data => data.countries).flat();
+  .includes(data.continent)).map(data => data.countries).flat();
 const getCropsList = () => getCountriesList().filter(data => selectedCountries()
-                          .includes(data.countryName)).map(data => data.crops).flat();
+  .includes(data.countryName)).map(data => data.crops).flat();
 
 const getUniqueCropList = () => Array.from(new Set(getCropsList().map(data => data.cropName)));
 
@@ -535,7 +565,7 @@ const programOptionList = () => Array.from($('#program').children()).filter(data
 const studyTypeOptionList = () => Array.from($('#studyName').children()).filter(data => data.value);
 
 const generateTraitsCharts = (chartData) => {
-  am4core.ready(function() {
+  am4core.ready(function () {
 
     // Themes begin
     am4core.useTheme(am4themes_material);
@@ -550,37 +580,60 @@ const generateTraitsCharts = (chartData) => {
     title.marginBottom = 5;
     // Add data
     chart.data = [
-      {'traitName': 'Min', 'value': chartData.min},
-       {'traitName': 'Mean', 'value': chartData.mean},
-       {'traitName': 'Max', 'value': chartData.max},
-      ];
+      { 'traitName': 'Min', 'value': chartData.min },
+      { 'traitName': 'Mean', 'value': chartData.mean },
+      { 'traitName': 'Max', 'value': chartData.max },
+    ];
     // Create axes
     const categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
     categoryAxis.dataFields.category = "traitName";
     categoryAxis.renderer.grid.template.location = 0;
     categoryAxis.renderer.minGridDistance = 30;
     const valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
-	const createSeries = (yValue, name) => {
-		// Create series
-    const series = chart.series.push(new am4charts.ColumnSeries());
-    series.dataFields.valueY = yValue;
-    series.dataFields.categoryX = "traitName";
-    series.name = name;
-    series.columns.template.tooltipText = "{categoryX}: [bold]{valueY}[/]";
-    series.columns.template.fillOpacity = .8;
-    const columnTemplate = series.columns.template;
-    columnTemplate.strokeWidth = 2;
-    columnTemplate.strokeOpacity = 1;
-    series.columns.template.adapter.add("fill", function (fill, target) {
-    return chart.colors.getIndex(target.dataItem.index);
-    });
-	}
+    const createSeries = (yValue, name) => {
+      // Create series
+      const series = chart.series.push(new am4charts.ColumnSeries());
+      series.dataFields.valueY = yValue;
+      series.dataFields.categoryX = "traitName";
+      series.name = name;
+      series.columns.template.tooltipText = "{categoryX}: [bold]{valueY}[/]";
+      series.columns.template.fillOpacity = .8;
+      const columnTemplate = series.columns.template;
+      columnTemplate.strokeWidth = 2;
+      columnTemplate.strokeOpacity = 1;
+      series.columns.template.adapter.add("fill", function (fill, target) {
+        return chart.colors.getIndex(target.dataItem.index);
+      });
+    }
 
-	createSeries('value', 'Traits');
-    }); // end am4core.ready()
+    createSeries('value', 'Traits');
+  }); // end am4core.ready()
 }
 
-$('#search').on('click', () => {getSelectedTrials();});
+$('#search').on('click', () => {
+ let msg = `Select atleast`;
+  if (!$('#Continent').val() || !$('#Continent').val().length) {
+    msg += ' one continent,';
+     }
+  if (!$('#Countries').val() || !$('#Countries').val().length) {
+    msg += ' one country,';
+  }
+  if (!$('#Crop').val() || !$('#Crop').val().length) {
+    msg += ' one crop,';
+  }
+  if (!$('#Years').val() || !$('#Years').val().length) {
+    msg += ' one year,';
+  }
+  if (!$('#designs').val() || !$('#designs').val().length) {
+    msg += ' one design,';
+  }
+  if(msg !== 'Select atleast'){
+    $('#messageBody').html(msg);
+    $('#messagebox').trigger('click');
+    return false
+  }
+  getSelectedTrials();
+});
 
 const fillMissingCountryDetails = () => {
   allTrialsList.forEach(element => {

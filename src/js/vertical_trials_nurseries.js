@@ -29,13 +29,13 @@ generateTrialsNurseriesChartVertical = (chartData) => {
         verticalTrialNur.legend.paddingBottom = 20
         verticalTrialNur.legend.labels.template.maxWidth = 95
 
-        verticalTrialNur.colors.list = [
-            am4core.color("#845EC2"),
-            am4core.color("#D65DB1"),
-            am4core.color("#FF6F91"),
-            am4core.color("#FF9671"),
-            am4core.color("#c7850c"),
-          ];
+        // verticalTrialNur.colors.list = [
+        //     am4core.color("#845EC2"),
+        //     am4core.color("#D65DB1"),
+        //     am4core.color("#FF6F91"),
+        //     am4core.color("#FF9671"),
+        //     am4core.color("#c7850c"),
+        //   ];
 
 
 
@@ -76,11 +76,16 @@ generateTrialsNurseriesChartVertical = (chartData) => {
             series.events.on("hidden", arrangeColumns);
             series.events.on("shown", arrangeColumns);
 
+            const seriesColor = name === 'Trials' ? '#1aa3ffa6' : '#14b8258f';
+
+            series.columns.template.fill = am4core.color(seriesColor);
+            series.columns.template.stroke = am4core.color(seriesColor);
+            series.columns.template.fillOpacity = 0.8;
+            
+
             var bullet = series.bullets.push(new am4charts.LabelBullet())
             bullet.interactionsEnabled = false
-            bullet.dy = 30;
-            // bullet.label.text = '{valueY}'
-            // bullet.label.fill = am4core.color('#ffffff')
+            
 
             return series;
         }
